@@ -1,29 +1,6 @@
-# Kees-TM Youtube Proxy
-
-Youtube Proxy is a Drupal 8 module to retreive youtube thumbnails without using the YouTube API.
-This module will:
-
-- Output the best quality youtube thumbnail available.
-- Convert the thumbnail to jpeg|png|webp
-
-## Installation
-
-**On a drupal 8 project:**
-
-***composer require keestm/youtube_proxy***
-___
-
-## Usage
-
-Go to http://example.com/?videoid=[videoid] (default output: png if found, on error json)
-Optional: 
-&output=[jpeg|png|webp|json] Get different types of output
-
-## License
-
 MIT License
 
-Copyright &copy; 2018 Kees™ Internetbureau
+Copyright (c) 2018 Kees™ Internetbureau
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

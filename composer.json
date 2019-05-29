@@ -1,0 +1,13 @@
+{
+    "name": "keestm/youtube_proxy",
+    "description": "Retreives the best quality youtube thumbnail available without the youtube api.",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "Aad",
+            "role": "maintainer"
+        }
+    ],
+    "license": "MIT",
+    "minimum-stability": "dev"
+}
