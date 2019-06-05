@@ -1,0 +1,129 @@
+<?php
+
+// use Drupal\Core\Messenger\MessengerInterface;
+// use Drupal\Core\Messenger;
+use \Drupal\file\Entity\File;
+use Drupal\kees_youtube_thumbnails\Base64Image;
+
+function kees_youtube_thumbnails_paragraph_presave(Drupal\Core\Entity\EntityInterface $entity)
+{
+    if ($entity->bundle() == "youtube")
+    {
+
+        $videoArray = $entity->get('field_youtube_id')->getValue();
+        $videoid = $videoArray[0]['value'];
+        $setThumbnail = $entity->get('field_youtube_thumbnail')->getValue();
+
+        if ($setThumbnail && !empty($setThumbnail)) return; // When predefined image is set, just continue saving
+
+        $error = [];
+        // $messenger = \Drupal::messenger();
+
+        // Check if the right libraries are installed / enabled
+        if (!extension_loaded('gd')) {
+            throw new \Exception('GD is not installed/enabled');
+        }
+
+        // Check for valid youtube id
+        // Youtube id's are always 11 characters
+        if (strlen($videoid) !== 11) {
+            // \Drupal::messenger()->addMessage('Video ID is not the right length.', 'error');
+            // $this->messenger->addError('Video ID is not the right length.', MessengerInterface::TYPE_ERROR);
+            // throw new \Exception('Video ID is not the right length.');
+            // $error['message'] = "Video ID is not the right length. (in/valid)";
+        }
+
+        // Check if string is build from valid characters
+        // $regex = "/^[0-9A-Za-z\s\-\_]+$/";
+        // if (!preg_match($regex, $videoid)) {
+        //     throw new \Exception('Video ID contains invalid characters');
+        //     // $error['message'] = "Video ID contains invalid characters. (invalid)";
+        // }
+
+        // Create the youtube url
+        $baseUrl = "https://img.youtube.com/vi/".$videoid."/";
+        $quality = [
+            'hq' => 'maxresdefault.jpg',
+            'sd' => 'sddefault.jpg',
+            'min' => '0.jpg'
+        ];
+
+        $img = null;
+        foreach ($quality as $key => $value) {
+            $imgSrc = $baseUrl.$value;
+            if (getimagesize($imgSrc) !== false) {
+                $img = $imgSrc;
+                break;
+            }
+        }
+
+        // if ($img == null) {
+        //     $error['message'] = "here is no thumbnail available.";
+        //     $error['fallback'] = true;
+        // }
+
+        $fileDir = "files/thumbnails";
+        $fileName = "{$videoid}.png";
+        $dirWithFile = $fileDir."/".$fileName;
+        // If the file already exists, then just set the path
+        if (file_exists($dirWithFile))
+        {
+            $entity->set('field_youtube_thumbnail', "public://".$dirWithFile);
+            return;
+        }
+
+
+        // Generate png image
+        ob_start();
+        header('Content-type: image/png');
+        imagepng(imagecreatefromjpeg($img));
+        $imageContents = ob_get_contents();
+        ob_end_clean();
+        imagedestroy($img);
+
+        $imgData = base64_encode($imageContents);
+        header('Content-type: text/plain');
+
+        // phpinfo();
+        // exit;
+        $image = new Base64Image($imgData, $videoid);
+        $image->setFileDirectory($fileDir);
+        $file = file_save_data($image->getFileData(), "public://{$fileDir}/{$image->getFileName()}", FILE_EXISTS_REPLACE);
+        if ($file == false) {
+            print_r("Error");
+            exit;
+        } else {
+            print_r($file);
+            exit;
+        }
+        $entity->set('field_youtube_thumbnail', "public://".$dirWithFile);
+        // print_r($file);
+        // exit;
+
+        // echo $imageContents;
+        // exit;
+
+        // Create dir of not exists
+        // if (file_prepare_directory($fileDir, FILE_CREATE_DIRECTORY))
+        // {
+        //     // $f = file_save_data("Dit is een test", $fileDir."/test.txt", FILE_EXISTS_REPLACE);
+        //     $f = file_save_data(base64_decode($imgData), $dirWithFile, FILE_EXISTS_REPLACE);
+        //     if ($f == false) {
+        //         // echo "False!";
+        //         print_r([$imgData]);
+        //         exit;
+        //     }
+        //     dsm($f);
+        // }
+        // $path = file_unmanaged_save_data($imageContents, fileName, FILE_EXISTS_ERROR);
+
+
+
+
+
+        // echo $videoid;
+        // exit;
+        // kint($entity);
+        // exit;
+    }
+}

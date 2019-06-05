@@ -1,5 +1,0 @@
-services:
-  kees_version_checker:
-    class: '\Drupal\kees_youtube_proxy\EventSubscriber\MyEventSubscriber'
-    tags:
-      - { name: 'event_subscriber' }

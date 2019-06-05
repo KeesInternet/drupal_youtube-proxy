@@ -1,0 +1,6 @@
+name: Kees-TM Youtube Thumbnails
+description: 'Get the best available thumbnail quality and save it.'
+package: Kees-TM
+
+type: module
+core: 8.x

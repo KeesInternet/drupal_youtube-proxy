@@ -1,6 +1,6 @@
 {
-    "name": "keestm/youtube_proxy",
-    "description": "Retreives the best quality youtube thumbnail available without the youtube api.",
+    "name": "keestm/youtube_thumbnails",
+    "description": "Get the best available thumbnail quality and save it.",
     "type": "drupal-module",
     "authors": [
         {

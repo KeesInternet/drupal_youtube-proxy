@@ -1,6 +1,0 @@
-name: Kees-TM Youtube Proxy
-description: 'Retreives the best available quality video thumbnail without the youtube api.'
-package: Kees-TM
-
-type: module
-core: 8.x
