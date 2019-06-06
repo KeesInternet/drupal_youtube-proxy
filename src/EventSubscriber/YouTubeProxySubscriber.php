@@ -10,11 +10,10 @@ use Drupal;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
 /**
  * Event Subscriber MyEventSubscriber.
  */
-class MyEventSubscriber implements EventSubscriberInterface
+class YouTubeProxySubscriber implements EventSubscriberInterface
 {
     /**
      * Create video_id to retreive thumbnails for youtube videos
