@@ -1,17 +1,17 @@
 <?php
 /**
  * @file
- * Contains \Drupal\my_event_subscriber\EventSubscriber\MyEventSubscriber.
+ * Contains \Drupal\youtube_proxy\EventSubscriber\MyEventSubscriber.
  */
 
-namespace Drupal\kees_youtube_proxy\EventSubscriber;
+namespace Drupal\youtube_proxy\EventSubscriber;
 
 use Drupal;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
- * Event Subscriber MyEventSubscriber.
+ * Event Subscriber YouTubeProxySubscriber.
  */
 class YouTubeProxySubscriber implements EventSubscriberInterface
 {
@@ -21,7 +21,7 @@ class YouTubeProxySubscriber implements EventSubscriberInterface
      * @param FilterResponseEvent $event
      * @return JSON json response
      */
-    public function onRespond(FilterResponseEvent $event)
+    public function onRespond()
     {
         if (isset($_GET['video_id']) && $_GET['video_id'] !== "") {
             // Create error array
@@ -86,6 +86,7 @@ class YouTubeProxySubscriber implements EventSubscriberInterface
             if (isset($_GET['output']) && in_array($_GET['output'], $allowedFormats)) {
                 switch ($_GET['output']) {
                     case 'jpeg':
+                    case 'jpg':
                         header('Content-type: image/jpeg');
                         imagejpeg(imagecreatefromjpeg($img));
                         header("Content-disposition: inline; filename=thumbnail_$videoid.jpeg");
