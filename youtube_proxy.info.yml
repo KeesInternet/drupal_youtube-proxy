@@ -1,6 +1,6 @@
-name: Kees-TM Youtube Proxy
+name: Youtube Proxy
 description: 'Retreives the best available quality video thumbnail without the youtube api.'
-package: Kees-TM
+package: estdigital
 
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
