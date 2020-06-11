@@ -1,5 +1,5 @@
 {
-    "name": "keestm/youtube_proxy",
+    "name": "estdigital/youtube_proxy",
     "description": "Retreives the best quality youtube thumbnail available without the youtube api.",
     "type": "drupal-module",
     "authors": [
