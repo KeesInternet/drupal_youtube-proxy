@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains youtube_proxy.install.
+ */
+
+use Drupal\user\Entity\Role;
+
+/**
+ * Implements hook_install().
+ * 
+ * This hook will run when the addon is being installed.
+ */
+function youtube_proxy_install() {
+  // Add permissions to view the REST Resource
+  // as authenticated and anonymous users.
+  $roles = ['anonymous', 'authenticated'];
+  foreach($roles as $role) {
+    $role = Role::load($role);
+    $role->grantPermission('restful get youtube_rest_resource');
+    $role->save();
+  }
+}
