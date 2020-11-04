@@ -4,8 +4,12 @@
     "type": "drupal-module",
     "authors": [
         {
-            "name": "Aad",
-            "role": "maintainer"
+            "name": "Est Digital BV.",
+            "role": "Publisher"
+        },
+        {
+            "name": "Aad van Esschoten",
+            "role": "Developer"
         }
     ],
     "license": "MIT",

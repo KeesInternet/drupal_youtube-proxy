@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Contains youtube_proxy.module.
+ */
+
+use Drupal\user\Entity\Role;
+
+
+/**
+ * Implements hook_update_8001().
+ * 
+ * This hook wil run when an update is taking place.
+ */
+function youtube_proxy_update_8001() {
+  // Add permissions to view the REST Resource
+  // as authenticated and anonymous users.
+  $roles = ['anonymous', 'authenticated'];
+  foreach($roles as $role) {
+    $role = Role::load($role);
+    $role->grantPermission('restful get youtube_rest_resource');
+    $role->save();
+  }
+}

@@ -1,5 +1,0 @@
-services:
-  youtube_proxy:
-    class: '\Drupal\youtube_proxy\EventSubscriber\YouTubeProxySubscriber'
-    tags:
-      - { name: 'event_subscriber' }

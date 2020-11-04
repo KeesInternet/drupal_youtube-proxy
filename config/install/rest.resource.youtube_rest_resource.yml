@@ -1,0 +1,9 @@
+id: youtube_rest_resource
+plugin_id: youtube_rest_resource
+granularity: method
+configuration:
+    GET:
+        supported_formats:
+            - json
+        supported_auth:
+            - cookie
