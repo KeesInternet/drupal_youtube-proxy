@@ -4,7 +4,7 @@ Youtube Proxy is a Drupal 8/9 module to get youtube thumbnails without using the
 This module will:
 
 - Output the best quality youtube thumbnail available.
-- Convert the thumbnail to jpeg|png|webp
+- Store the thumbnail binary in cache, to reduce request time
 
 ## Installation
 
@@ -15,9 +15,10 @@ ___
 
 ## Usage
 
-Go to http://example.com/?videoid=[videoid] (default output: png if found, on error json)
-Optional: 
-&output=[jpeg|png|webp|json] Get different types of output
+Video id can be requested by going to:  
+https://example.com/api/yt_proxy/`[video_id]`  
+
+Errors will be returned in JSON
 
 ## License
 
